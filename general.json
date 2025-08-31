@@ -1,0 +1,29 @@
+{
+  "name": "general",
+  "repo_name": "monorepo",
+  "description": "Strategy from zapret-discord repository",
+  "nft_rules": [
+    "udp dport {443} counter queue num 0 bypass",
+    "udp dport {50000-50100} counter queue num 1 bypass",
+    "tcp dport {80} counter queue num 2 bypass",
+    "tcp dport {443} counter queue num 3 bypass"
+  ],
+  "nfqws_params": [
+    "--hostlist=\"list-general.txt\" --dpi-desync=fake --dpi-desync-repeats=6 --dpi-desync-fake-quic=\"bin/quic_initial_www_google_com.bin\"",
+    "--ipset=\"ipset-discord.txt\" --dpi-desync=fake --dpi-desync-any-protocol --dpi-desync-cutoff=d3 --dpi-desync-repeats=6",
+    "--hostlist=\"list-general.txt\" --dpi-desync=fake,split2 --dpi-desync-autottl=2 --dpi-desync-fooling=md5sig",
+    "--hostlist=\"list-general.txt\" --dpi-desync=fake,split --dpi-desync-autottl=2 --dpi-desync-repeats=6 --dpi-desync-fooling=badseq --dpi-desync-fake-tls=\"bin/tls_clienthello_www_google_com.bin\""
+  ],
+  "meta": {
+    "version": "1.0"
+  },
+  "depends": [
+    "bin/winws.exe",
+    "list-general.txt",
+    "bin/quic_initial_www_google_com.bin",
+    "ipset-discord.txt",
+    "list-general.txt",
+    "list-general.txt",
+    "bin/tls_clienthello_www_google_com.bin"
+  ]
+}
